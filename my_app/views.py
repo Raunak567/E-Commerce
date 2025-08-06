@@ -1,0 +1,16 @@
+from django.shortcuts import render, get_object_or_404
+from .models import Product
+import random
+
+def home(request):
+    products = Product.objects.all()
+    return render(request, 'store/Home.html', {'products': products})
+
+def headphone_slider(request):
+    products = list(Product.objects.filter(category__iexact='Headphones and Earbuds'))
+    random.shuffle(products)
+    return render(request, 'store/Home.html', {'products': products})
+
+def product_detail(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    return render(request, 'store/product_detail.html', {'product': product})

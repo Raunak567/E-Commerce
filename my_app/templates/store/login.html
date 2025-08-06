@@ -1,0 +1,187 @@
+{% extends store/Home.html%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .input-field:focus-within {
+            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.5);
+        }
+        .shake {
+            animation: shake 0.5s;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-md">
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+            <div class="p-8">
+                <div class="text-center mb-8">
+                    <h1 class="text-3xl font-bold text-gray-800">Welcome Back</h1>
+                    <p class="text-gray-600 mt-2">Sign in to your account</p>
+                </div>
+                
+                <form id="loginForm" class="space-y-6">
+                    <div class="input-field relative bg-gray-50 rounded-lg p-3 border border-gray-200 transition-all duration-200">
+                        <label for="email" class="block text-xs font-medium text-gray-500 mb-1">Email Address</label>
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope text-gray-400 mr-2"></i>
+                            <input type="email" id="email" name="email" required 
+                                   class="w-full bg-transparent outline-none text-gray-700"
+                                   placeholder="your@email.com">
+                        </div>
+                        <span id="emailError" class="text-red-500 text-xs mt-1 hidden">Please enter a valid email</span>
+                    </div>
+                    
+                    <div class="input-field relative bg-gray-50 rounded-lg p-3 border border-gray-200 transition-all duration-200">
+                        <label for="password" class="block text-xs font-medium text-gray-500 mb-1">Password</label>
+                        <div class="flex items-center">
+                            <i class="fas fa-lock text-gray-400 mr-2"></i>
+                            <input type="password" id="password" name="password" required 
+                                   class="w-full bg-transparent outline-none text-gray-700"
+                                   placeholder="••••••••">
+                            <button type="button" id="togglePassword" class="text-gray-400 hover:text-gray-600">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <span id="passwordError" class="text-red-500 text-xs mt-1 hidden">Password must be at least 6 characters</span>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <input id="remember" type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                            <label for="remember" class="ml-2 block text-sm text-gray-700">Remember me</label>
+                        </div>
+                        <a href="#" class="text-sm text-indigo-600 hover:text-indigo-500">Forgot password?</a>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-indigo-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-200">
+                        Sign In
+                    </button>
+                </form>
+                
+                <div class="mt-6 text-center">
+                    <p class="text-sm text-gray-600">
+                        Don't have an account? 
+                        <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">Sign up</a>
+                    </p>
+                </div>
+                
+                <div class="mt-6">
+                    <div class="relative">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-gray-300"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-2 bg-white text-gray-500">Or continue with</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 grid grid-cols-3 gap-3">
+                        <button type="button" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            <i class="fab fa-google text-red-500"></i>
+                        </button>
+                        <button type="button" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            <i class="fab fa-facebook-f text-blue-600"></i>
+                        </button>
+                        <button type="button" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            <i class="fab fa-twitter text-blue-400"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-gray-50 px-8 py-4 border-t border-gray-200">
+                <p class="text-xs text-gray-500 text-center">
+                    By signing in, you agree to our <a href="#" class="text-indigo-600 hover:text-indigo-500">Terms of Service</a> and <a href="#" class="text-indigo-600 hover:text-indigo-500">Privacy Policy</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const togglePassword = document.getElementById('togglePassword');
+            const emailError = document.getElementById('emailError');
+            const passwordError = document.getElementById('passwordError');
+            
+            // Toggle password visibility
+            togglePassword.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+            });
+            
+            // Form validation
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                let isValid = true;
+                
+                // Reset errors
+                emailError.classList.add('hidden');
+                passwordError.classList.add('hidden');
+                emailInput.parentElement.classList.remove('border-red-500');
+                passwordInput.parentElement.classList.remove('border-red-500');
+                
+                // Validate email
+                if (!emailInput.value || !/^\S+@\S+\.\S+$/.test(emailInput.value)) {
+                    emailError.classList.remove('hidden');
+                    emailInput.parentElement.classList.add('border-red-500');
+                    isValid = false;
+                }
+                
+                // Validate password
+                if (!passwordInput.value || passwordInput.value.length < 6) {
+                    passwordError.classList.remove('hidden');
+                    passwordInput.parentElement.classList.add('border-red-500');
+                    isValid = false;
+                }
+                
+                if (!isValid) {
+                    loginForm.classList.add('shake');
+                    setTimeout(() => loginForm.classList.remove('shake'), 500);
+                    return;
+                }
+                
+                // Form is valid - simulate login
+                console.log('Form submitted:', {
+                    email: emailInput.value,
+                    password: passwordInput.value,
+                    remember: document.getElementById('remember').checked
+                });
+                
+                // Show success (in a real app, you would redirect or handle the login response)
+                alert('Login successful! (This is a demo)');
+            });
+            
+            // Real-time validation for better UX
+            emailInput.addEventListener('input', function() {
+                if (/^\S+@\S+\.\S+$/.test(emailInput.value)) {
+                    emailError.classList.add('hidden');
+                    emailInput.parentElement.classList.remove('border-red-500');
+                }
+            });
+            
+            passwordInput.addEventListener('input', function() {
+                if (passwordInput.value.length >= 6) {
+                    passwordError.classList.add('hidden');
+                    passwordInput.parentElement.classList.remove('border-red-500');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
