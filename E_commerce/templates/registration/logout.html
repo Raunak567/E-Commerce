@@ -1,0 +1,53 @@
+<body>
+    <div class="logout-container">
+        <div class="header">
+            <h1>Goodbye!</h1>
+            <p>You've been successfully logged out</p>
+        </div>
+        
+        <div class="content">
+            <div class="logout-icon">
+                <i class="fas fa-sign-out-alt"></i>
+            </div>
+            
+            <div class="message">
+                <h2>See you soon!</h2>
+                <p>Thank you for visiting our store. We hope you had a great shopping experience!</p>
+            </div>
+            
+            <div class="buttons">
+                <a href="{% url 'login' %}" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Sign In Again
+                </a>
+                <a href="{% url 'home' %}" class="btn btn-secondary">
+                    <i class="fas fa-home"></i>
+                    Back to Home
+                </a>
+            </div>
+            
+            <div class="divider">
+                <span>Or continue with</span>
+            </div>
+            
+            <div class="social-buttons">
+                <button class="social-btn google">
+                    <i class="fab fa-google"></i>
+                </button>
+                <button class="social-btn facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </button>
+                <button class="social-btn twitter">
+                    <i class="fab fa-twitter"></i>
+                </button>
+            </div>
+            
+            <div class="login-link">
+                Want to sign in again? 
+                <a href="{% url 'login' %}">Click here</a>
+            </div>
+        </div>
+    </div>
+
+    
+</body>

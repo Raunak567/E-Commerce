@@ -1,8 +1,4 @@
-.product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-        
+
         .cart-item-enter {
             opacity: 0;
             transform: translateX(-20px);
@@ -26,3 +22,63 @@
             background-size: cover;
             background-position: center;
         }
+        .product-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        will-change: transform;
+}
+
+        .product-card:hover {
+         transform: translateY(-8px);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+        }
+        @keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.product-card:hover img {
+  filter: brightness(1.05);
+  transform: scale(1.02);
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+/* User Menu Animations */
+@keyframes slideInFromTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-in {
+  animation: slideInFromTop 0.2s ease-out forwards;
+}
+
+.slide-in-from-top-2 {
+  transform-origin: top right;
+}
+
+/* User menu hover effects */
+#userMenuButton:hover .fa-chevron-down {
+  transform: rotate(180deg);
+  transition: transform 0.2s ease;
+}
+
+#userMenuButton .fa-chevron-down {
+  transition: transform 0.2s ease;
+}

@@ -5,11 +5,10 @@ from django.contrib.auth.models import User
 
 class Product(models.Model):
     PRODUCT_CATAGORY = [
-    ('EL', 'Mobile Phones'),
-    ('HE', 'Headphones and Earbuds'),
+    ('EL', 'Electronics'),
+    ('FS', 'Fashion'),
     ('HK', 'Home & Kitchen'),
-    ('LP', 'Laptops'),
-    ('CM', 'Cameras'),
+    ('ST', 'Sports'),
     ('OT', 'Others'),
    ]
     name = models.CharField(max_length=100)
@@ -18,7 +17,6 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     stock = models.PositiveIntegerField(default=0)
     is_available = models.BooleanField(default=True)
-    model_number = models.CharField(max_length=50, default='N/A')
     image = models.ImageField(upload_to='products/')
     date_added = models.DateTimeField(default=timezone.now)
 
