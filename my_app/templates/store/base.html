@@ -22,10 +22,40 @@
                         <a class="text-xl font-bold text-indigo-600" href="{% url 'home' %}">ShopEase</a>
                     </div>
                     <div class="hidden md:ml-6 md:flex md:space-x-8">
-                        <a href="{% url 'home' %}" class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Home</a>
-                        <a href="{% url 'home' %}" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Shop</a>
-                        <a href="{% url 'home' %}" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Categories</a>
-                        <a href="{% url 'home' %}" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">About</a>
+                        <a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}border-indigo-500 text-gray-900{% else %}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{% endif %} inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Home</a>
+                        <div class="relative inline-block text-left group">
+                            <button id="categoriesMenuButton" class="border-transparent text-gray-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                                Category
+                                <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                            </button>
+                            <div id="categoriesMenu" class="hidden group-hover:block absolute mt-2 w-48 bg-white rounded-lg shadow-xl py-2 z-50 border border-gray-200">
+                                <a href="{% url 'shop' %}?type=EL" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-indigo-600">Electronics</a>
+                                <a href="{% url 'shop' %}?type=FS" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-indigo-600">Fashion</a>
+                                <a href="{% url 'shop' %}?type=HK" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-indigo-600">Home &amp; Kitchen</a>
+                                <a href="{% url 'shop' %}?type=ST" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-indigo-600">Sports</a>
+                                <a href="{% url 'shop' %}?type=OT" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-indigo-600">Others</a>
+                            </div>
+                        </div>
+                        <button id="categoriesMenuButton" class="border-transparent text-gray-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Deals
+                        </button>
+                        <button id="categoriesMenuButton" class="border-transparent text-gray-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            What's New
+                        </button>
+                        <button id="categoriesMenuButton" class="border-transparent text-gray-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Delivery
+                        </button>
+                        <div class="relative inline-block text-left group">
+                            <button id="aboutMenuButton" class="border-transparent text-gray-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                                About
+                                <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                            </button>
+                            <div id="aboutMenu" class="hidden group-hover:block absolute mt-2 w-56 bg-white rounded-lg shadow-xl py-2 z-50 border border-gray-200">
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-indigo-600">Our Story</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-indigo-600">Contact</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-indigo-600">FAQs</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 {% if user.is_authenticated and user.is_staff %}
@@ -204,6 +234,34 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
+// Navbar dropdowns (click-to-toggle + outside click close)
+(() => {
+    const bindDropdown = (buttonId, menuId) => {
+        const btn = document.getElementById(buttonId);
+        const menu = document.getElementById(menuId);
+        if (!btn || !menu) return;
+
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            menu.classList.toggle('hidden');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!menu.classList.contains('hidden')) {
+                const clickedInsideButton = btn.contains(e.target);
+                const clickedInsideMenu = menu.contains(e.target);
+                if (!clickedInsideButton && !clickedInsideMenu) {
+                    menu.classList.add('hidden');
+                }
+            }
+        });
+    };
+
+    bindDropdown('shopMenuButton', 'shopMenu');
+    bindDropdown('categoriesMenuButton', 'categoriesMenu');
+    bindDropdown('aboutMenuButton', 'aboutMenu');
+})();
 
         
         // Cart functionality

@@ -22,6 +22,36 @@ def home(request):
         'featured_by_category': featured_by_category,
     })
 
+def shop(request):
+    type_filter = request.GET.get('type')
+    products_qs = Product.objects.filter(is_available=True)
+    if type_filter:
+        products_qs = products_qs.filter(type=type_filter)
+
+    products = products_qs.order_by('-date_added')
+
+    # Build category metadata for the category grid
+    counts_qs = Product.objects.filter(is_available=True).values('type').annotate(count=Count('id'))
+    type_to_count = {row['type']: row['count'] for row in counts_qs}
+
+    categories = []
+    for code, label in Product.PRODUCT_CATAGORY:
+        latest = Product.objects.filter(is_available=True, type=code).order_by('-date_added').first()
+        cover_url = latest.image.url if latest and latest.image else ''
+        categories.append({
+            'code': code,
+            'label': label,
+            'count': type_to_count.get(code, 0),
+            'cover_url': cover_url,
+        })
+
+    return render(request, 'store/shop.html', {
+        'products': products,
+        'type_choices': Product.PRODUCT_CATAGORY,
+        'active_type': type_filter or '',
+        'categories': categories,
+    })
+
 def Electronics_slider(request):
     products = list(Product.objects.filter(category__iexact='Headphones and Earbuds'))
     random.shuffle(products)
@@ -44,7 +74,13 @@ def Sports_slider(request):
 
 def product_detail(request, product_id):
     product = get_object_or_404(Product, id=product_id)
-    return render(request, 'store/product_detail.html', {'product': product})
+    type_label = dict(Product.PRODUCT_CATAGORY).get(product.type, 'Others')
+    related_products = Product.objects.filter(is_available=True, type=product.type).exclude(id=product.id).order_by('-date_added')[:8]
+    return render(request, 'store/product_detail.html', {
+        'product': product,
+        'type_label': type_label,
+        'related_products': related_products,
+    })
 
 @login_required
 def admin_dashboard(request):
