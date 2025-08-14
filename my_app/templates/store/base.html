@@ -7,7 +7,7 @@
     <title>{% block title %}{% endblock %}</title>
     {% tailwind_css %}
     {% load static %}
-    <link rel="stylesheet" href="{% static './base.css' %}">
+    {% block styles %} <link rel="stylesheet" href="{% static './base.css' %}">{%endblock%}
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -46,18 +46,13 @@
                             Delivery
                         </button>
                         <div class="relative inline-block text-left group">
-                            <button id="aboutMenuButton" class="border-transparent text-gray-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            <a  href="#"  class=" border-transparent text-gray-500 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                                 About
-                                <i class="fas fa-chevron-down ml-1 text-xs"></i>
-                            </button>
-                            <div id="aboutMenu" class="hidden group-hover:block absolute mt-2 w-56 bg-white rounded-lg shadow-xl py-2 z-50 border border-gray-200">
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-indigo-600">Our Story</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-indigo-600">Contact</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-indigo-600">FAQs</a>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>
+                
                 {% if user.is_authenticated and user.is_staff %}
                 <a class="btn btn-primary btn-sm normal-case shadow hover:shadow-md transition " href="{% url 'admin_dashboard' %}">
                     <i class="fas fa-tools mr-2"></i>
@@ -185,10 +180,17 @@
 
 <!-- Cart Overlay -->
 <div id="cart-overlay" class="fixed inset-0 bg-black bg-opacity-50 opacity-0 pointer-events-none transition-opacity duration-300 ease-in-out z-40"></div>
+{% block newsletter %}{% endblock %}
 
 {%block Footer%}{%endblock%}
 
+
+{%block script%}
+
 <script>
+    function toggleAboutModal(show) {
+        document.getElementById('aboutModal').classList.toggle('hidden', !show);
+    }
     const userMenuButton = document.getElementById('userMenuButton');
   const userMenu = document.getElementById('userMenu');
 
@@ -512,5 +514,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 </script>
+{%endblock%}
 </body>
 </html>

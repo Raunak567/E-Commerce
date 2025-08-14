@@ -1,0 +1,47 @@
+{% extends 'store/base.html' %}
+{%block title%}About | ShopEase{%endblock%}
+{%block about%}
+<div id="aboutModal" class="fixed inset-0 hidden bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-xl w-full max-w-lg p-6 relative">
+      
+      <!-- Close Button -->
+      <button onclick="toggleAboutModal(false)" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+
+      <!-- Title -->
+      <h2 class="text-2xl font-bold text-indigo-600 mb-2">About ShopEase</h2>
+      <p class="text-gray-600 mb-4">
+        Welcome to <strong>ShopEase</strong> — your one-stop eCommerce platform designed to make online shopping fast, easy, and enjoyable.
+        Built with modern technologies, ShopEase brings you a smooth, secure, and engaging shopping experience.
+      </p>
+
+      <!-- GitHub Link -->
+      <p class="mb-4">
+        View our source code and contribute on GitHub:  
+        <a href="https://github.com/yourusername/shopease" target="_blank" class="text-blue-600 hover:underline">
+          github.com/yourusername/shopease
+        </a>
+      </p>
+
+      <!-- Features -->
+      <h3 class="text-lg font-semibold mb-2">Key Features:</h3>
+      <ul class="list-disc list-inside text-gray-700 space-y-1 mb-4">
+        <li>Modern, responsive design</li>
+        <li>Secure user authentication</li>
+        <li>Fast product search & filtering</li>
+        <li>Easy checkout process</li>
+      </ul>
+
+      <!-- Footer -->
+      <div class="text-sm text-gray-500 border-t pt-3">
+        &copy; 2025 ShopEase. All rights reserved.
+      </div>
+    </div>
+  </div>
+{%block script%}
+  <script>
+    function toggleAboutModal(show) {
+      document.getElementById('aboutModal').classList.toggle('hidden', !show);
+    }
+  </script>
+  {%endblock%}
+  {%endblock%}

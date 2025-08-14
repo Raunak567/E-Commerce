@@ -22,6 +22,10 @@ def home(request):
         'featured_by_category': featured_by_category,
     })
 
+def about(request):
+    return render(request, "store/about.html")
+
+
 def shop(request):
     type_filter = request.GET.get('type')
     products_qs = Product.objects.filter(is_available=True)
@@ -154,3 +158,17 @@ def register(request):
 def logout_view(request):
     logout(request)
     return redirect('home')
+
+def Shop_now(request):
+    products = Product.objects.all().order_by('-date_added')
+    # Pick one featured product per category (latest by date_added)
+    featured_by_category = {}
+    for code, _label in Product.PRODUCT_CATAGORY:
+        featured_product = Product.objects.filter(type=code).order_by('-date_added').first()
+        if featured_product:
+            featured_by_category[code] = featured_product
+
+    return render(request, 'store/shop_now.html', {
+        'products': products,
+        'featured_by_category': featured_by_category,
+    })
