@@ -25,6 +25,9 @@ def home(request):
 def about(request):
     return render(request, "store/about.html")
 
+def working(request):
+    return render(request,"store/working.html")
+
 
 def shop(request):
     type_filter = request.GET.get('type')

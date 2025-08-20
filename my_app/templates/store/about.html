@@ -1,48 +1,30 @@
 {% extends 'store/base.html' %}
-{%block title%}About | ShopEase{%endblock%}
+{% block title %}About Me{% endblock %}
 {%block Navbar%}{% include "store/Navbar.html"%}{%endblock%}
-{%block about%}
-<div id="aboutModal" class="fixed inset-0 hidden bg-black bg-opacity-50 flex items-center justify-center z-50">
-    <div class="bg-white rounded-lg shadow-xl w-full max-w-lg p-6 relative">
-      
-      <!-- Close Button -->
-      <button onclick="toggleAboutModal(false)" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+{% load static %}
+{% block styles %} <link rel="stylesheet" href="{% static './about.css' %}">{%endblock%}
+{%block Featured%}
 
-      <!-- Title -->
-      <h2 class="text-2xl font-bold text-indigo-600 mb-2">About ShopEase</h2>
-      <p class="text-gray-600 mb-4">
-        Welcome to <strong>ShopEase</strong> — your one-stop eCommerce platform designed to make online shopping fast, easy, and enjoyable.
-        Built with modern technologies, ShopEase brings you a smooth, secure, and engaging shopping experience.
-      </p>
+<div class="min-h-screen flex flex-col items-center justify-center" style="background:#f3f4f6; padding:24px;">
+  <div class="bg-white shadow-lg rounded-xl p-8 max-w-lg w-full text-center">
+    <h1 class="text-3xl font-bold mb-6" style="color:#111827;">About Me</h1>
 
-      <!-- GitHub Link -->
-      <p class="mb-4">
-        View our source code and contribute on GitHub:  
-        <a href="https://github.com/yourusername/shopease" target="_blank" class="text-blue-600 hover:underline">
-          github.com/yourusername/shopease
-        </a>
-      </p>
+    <div class="space-y-4" style="display:flex; flex-direction:column; gap:16px;">
+      <!-- GitHub -->
+      <a href="https://github.com/raunak567" target="_blank" class="profile-btn github-btn">
+        <i class="fab fa-github"></i> My GitHub
+      </a>
 
-      <!-- Features -->
-      <h3 class="text-lg font-semibold mb-2">Key Features:</h3>
-      <ul class="list-disc list-inside text-gray-700 space-y-1 mb-4">
-        <li>Modern, responsive design</li>
-        <li>Secure user authentication</li>
-        <li>Fast product search & filtering</li>
-        <li>Easy checkout process</li>
-      </ul>
+      <!-- LinkedIn -->
+      <a href="https://www.linkedin.com/in/raunak-kumar-b3739028a/" target="_blank" class="profile-btn linkedin-btn">
+        <i class="fab fa-linkedin"></i> My LinkedIn
+      </a>
 
-      <!-- Footer -->
-      <div class="text-sm text-gray-500 border-t pt-3">
-        &copy; 2025 ShopEase. All rights reserved.
-      </div>
+      <!-- Email -->
+      <a href="mailto:raunakkumar56789@gmail.com" class="profile-btn email-btn">
+        <i class="fas fa-envelope"></i> Email Me
+      </a>
     </div>
   </div>
-{%block script%}
-  <script>
-    function toggleAboutModal(show) {
-      document.getElementById('aboutModal').classList.toggle('hidden', !show);
-    }
-  </script>
-  {%endblock%}
+</div>
   {%endblock%}

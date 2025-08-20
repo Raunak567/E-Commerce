@@ -10,7 +10,8 @@ urlpatterns = [
     path('admin-dashboard/delete/<int:product_id>/', views.admin_delete_product, name='admin_delete_product'),
     path('register/', views.register , name='register'),
     path('logout/', views.logout_view, name='logout'),
-    path('Home/shop/new', views.Shop_now, name='shop_now'),
+    path('Home/shop/new/', views.Shop_now, name='shop_now'),
+    path('Error-404/', views.working, name='working'),
     
     path("__reload__/", include("django_browser_reload.urls")),
 ]
